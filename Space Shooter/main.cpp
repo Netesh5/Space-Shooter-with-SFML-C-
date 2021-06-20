@@ -34,9 +34,6 @@ public :
             delay(1);
          }
     }
-
-
-
 };
 
 void maingame::menu(){
@@ -132,19 +129,14 @@ void highscore()
     outtextxy(400,260,score);
 
 }
-
-
 void credits()
 {
     readimagefile("Images/credits.jpg",0,0,getmaxx(),getmaxy());
 }
-
-
 void instruction()
 {
     readimagefile("Images/instructions.jpg",0,0,getmaxx(),getmaxy());
 }
-
 int main()
 {
     int gd=DETECT,gm;
