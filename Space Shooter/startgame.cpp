@@ -8,8 +8,6 @@
 #include<string>
 #include<sstream>
 #include<fstream>
-
-
 using namespace std;
 using namespace sf;
 void startgame(){
@@ -19,8 +17,7 @@ void startgame(){
 	fin.open("Score.txt");
 	fin>>h_score;
 	fin.close();
-
-
+	
 	Font font;
 	font.loadFromFile("Fonts/arial.ttf");
 
@@ -28,7 +25,6 @@ void startgame(){
 	text.setFont(font);
 	text.setCharacterSize(30);
 	text.setFillColor(Color::White);
-
 
 	Text text2; //text for game over;
 	text2.setFont(font);
@@ -53,18 +49,15 @@ void startgame(){
 	text5.setCharacterSize(40);
 	text5.setFillColor(Color::White);
 
-
 	//music;
 	Music m;
 	Music fire;
 	fire.openFromFile("Sounds/laser.wav");
 	m.openFromFile("Sounds/background.wav");
 
-
 	//window
 	 RenderWindow window(VideoMode(),"Space Shooter",Style::Fullscreen);
 	window.setFramerateLimit(60);
-
 
 	//background image;
 	Texture bg;
@@ -77,16 +70,13 @@ void startgame(){
 	Sprite Go_background;
 	Go_background.setTexture(go_bg);
 
-
-
 	//spaceship;
 	Texture sship;
 	sship.loadFromFile("Images/ship.png");
 	Sprite ship;
 	ship.setTexture(sship);
 	ship.setPosition(getmaxwidth()/2,getmaxheight()/2+200);
-    ship.setScale(0.2,0.2);
-
+    	ship.setScale(0.2,0.2);
 
 	//bullet;
 	CircleShape bullet;
@@ -104,7 +94,7 @@ void startgame(){
 
 	int time2=0;
 
-    //score;
+    	//score;
 	int score=0;
 
 	vector<Sprite>vec_asteroid; //asteroid variable ;
@@ -144,43 +134,40 @@ void startgame(){
 			}
 			//enemy movement;
 			if(time2<20){ //time to recall the enemy;
-                time2++;
+                		time2++;
 			}
 			if(time2>=20){
-                asteroid.setPosition(50+rand()%getmaxwidth(),-15.f);//bring asteroid ;
-                vec_asteroid.push_back(Sprite(asteroid)); // suru ma erase garxa ani push_back le naya asteroid generate garxa;
-                time2=0;
+                		asteroid.setPosition(50+rand()%getmaxwidth(),-15.f);//bring asteroid ;
+                		vec_asteroid.push_back(Sprite(asteroid)); // suru ma erase garxa ani push_back le naya asteroid generate garxa;
+                		time2=0;
 			}
-
 			for(int i=0;i<vec_asteroid.size();i++){
-                vec_asteroid[i].move(0.f,2.f);
-                if( vec_asteroid[i].getGlobalBounds().intersects(ship.getGlobalBounds())){ // to check collision between asteroid and spaceship
-                    vec_asteroid.erase(vec_asteroid.begin()+i);
-                    k--; // indicator
-                }
+                		vec_asteroid[i].move(0.f,2.f);
+                		if( vec_asteroid[i].getGlobalBounds().intersects(ship.getGlobalBounds())){ // to check collision between asteroid and spaceship
+                   			 vec_asteroid.erase(vec_asteroid.begin()+i);
+                    				k--; // indicator
+                		}
 			}
 
 			//collision;
 			for(int i=0;i<vec_bullet.size();i++)
-                {
-                    for(int j=0;j<vec_asteroid.size();j++)
-                    {
-                        if(vec_bullet[i].getGlobalBounds().intersects(vec_asteroid[j].getGlobalBounds()) )
-                            {
-                                vec_asteroid.erase(vec_asteroid.begin()+j);
-                                vec_bullet.erase(vec_bullet.begin()+i);
-                                score++;
-                                break;
-                            }
-                    }
-                }
-            text3.setPosition(getmaxwidth()-250,0);
+                	{
+                   		 for(int j=0;j<vec_asteroid.size();j++)
+                    		{
+                        		if(vec_bullet[i].getGlobalBounds().intersects(vec_asteroid[j].getGlobalBounds()) )
+                            		{
+                                		vec_asteroid.erase(vec_asteroid.begin()+j);
+                                		vec_bullet.erase(vec_bullet.begin()+i);
+                                		score++;
+                                		break;
+                            		}
+                   		 }
+                	}
+            		text3.setPosition(getmaxwidth()-250,0);
 			text3.setString("High Score : "+std::to_string(h_score));
 
-
 			//Score;
-            text.setString("Score : "+std::to_string(score));
-
+            		text.setString("Score : "+std::to_string(score));
 
 			window.clear();
 			window.draw(background);
@@ -189,17 +176,16 @@ void startgame(){
 				window.draw(vec_bullet[i]);
 			}
 			for(int i=0;i<vec_asteroid.size();i++){ // recalling of asteroid after clearing the device;
-                window.draw(vec_asteroid[i]);
+                		window.draw(vec_asteroid[i]);
 			}
 
 			window.draw(asteroid);
 			window.draw(text);
 			window.draw(text3);
 			if(score>30) //movement increase of enemy
-            {
-                time2+=2;
-            }
-
+            		{
+                		time2+=2;
+            		}
 			if(k<=0){ // after collision of spaceship
 				window.clear();
 				window.draw(Go_background); //display game over background image;
@@ -211,25 +197,25 @@ void startgame(){
 				window.draw(text2);
 				window.draw(text3);
 				text4.setPosition(getmaxwidth()/2-250,getmaxheight()/2-100);
-                text4.setString("Congratulations ! New High score : "+std::to_string(h_score));
-                text5.setPosition(getmaxwidth()/2-180,getmaxheight()/2);
-                text5.setString("Do you want to continue ? \n\n\t\tPress  Y  or  N  ");
-                window.draw(text5);
-                if(Keyboard::isKeyPressed(Keyboard::Key::Y)){
-                    window.close();
-                    startgame();
-                   }
-                   else if(Keyboard::isKeyPressed(Keyboard::Key::N)){
-                     window.close();
-                   }
+                		text4.setString("Congratulations ! New High score : "+std::to_string(h_score));
+                		text5.setPosition(getmaxwidth()/2-180,getmaxheight()/2);
+                		text5.setString("Do you want to continue ? \n\n\t\tPress  Y  or  N  ");
+                		window.draw(text5);
+                		if(Keyboard::isKeyPressed(Keyboard::Key::Y)){
+                   			 window.close();
+                    			startgame();
+                   		}
+                   		else if(Keyboard::isKeyPressed(Keyboard::Key::N)){
+                     			window.close();
+                   		}
 
 				if(score>=h_score){ // for storing the score in database
-                    window.draw(text4);
-                    ofstream fout;
-                    fout.open("Score.txt");
-                    h_score=score;
-                    fout<<h_score;
-                    fout.close();
+                    			window.draw(text4);
+                    			ofstream fout;
+                    			fout.open("Score.txt");
+                   			 h_score=score;
+                    			fout<<h_score;
+                    			fout.close();
 				}
 			}
 			window.display();
